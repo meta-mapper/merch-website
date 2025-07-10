@@ -3,6 +3,8 @@ const { createProxyMiddleware, responseInterceptor } = require('http-proxy-middl
 
 const app = express();
 
+const cache = {};
+
 const proxy = createProxyMiddleware({
 	target: 'https://madeformerch.framer.website',
 	changeOrigin: true,
@@ -10,12 +12,29 @@ const proxy = createProxyMiddleware({
 	on: {
 		proxyRes: responseInterceptor(async (responseBuffer) => {
 			//
-			const response = responseBuffer.toString('utf8');
+			let response = responseBuffer.toString('utf8');
 
-			return response.replace(
+			response = response.replace(
 				'<div id="__framer-badge-container"></div>',
 				'<div id="__framer-badge-container" style="display: none;"></div>'
 			);
+
+			response = response.replace(
+				'<link href="https://framerusercontent.com/sites/icons/default-favicon-light.v1.png" rel="icon" media="(prefers-color-scheme: light)">',
+				'<link href="https://dashboard.madeformerch.com/images/favicon.png" rel="icon" media="(prefers-color-scheme: light)">'
+			);
+
+			response = response.replace(
+				'<link href="https://framerusercontent.com/sites/icons/default-favicon-dark.v1.png" rel="icon" media="(prefers-color-scheme: dark)">',
+				'<link href="https://dashboard.madeformerch.com/images/favicon.png" rel="icon" media="(prefers-color-scheme: dark)">'
+			);
+
+			response = response.replace(
+				'<link rel="apple-touch-icon" href="https://framerusercontent.com/sites/icons/default-touch-icon.v3.png">',
+				'<link rel="apple-touch-icon" href="https://dashboard.madeformerch.com/images/favicon.png">'
+			);
+
+			return response;
 		}),
 	},
 });
