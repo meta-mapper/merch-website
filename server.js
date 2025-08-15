@@ -15,8 +15,8 @@ const proxy = createProxyMiddleware({
 			let response = responseBuffer.toString('utf8');
 
 			response = response.replace(
-				'<div id="__framer-badge-container"></div>',
-				'<div id="__framer-badge-container" style="display: none;"></div>'
+				'<div id="__framer-badge-container">',
+				'<div id="__framer-badge-container" style="display: none;">'
 			);
 
 			response = response.replace(
