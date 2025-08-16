@@ -34,6 +34,22 @@ const proxy = createProxyMiddleware({
 				'<link rel="apple-touch-icon" href="https://dashboard.madeformerch.com/images/favicon.png">'
 			);
 
+			response = response.replace(
+				'</head>',
+				`
+					<!-- Google tag (gtag.js) -->
+					<script async src="https://www.googletagmanager.com/gtag/js?id=G-F7PB7C0Q78"></script>
+					<script>
+					window.dataLayer = window.dataLayer || [];
+					function gtag(){dataLayer.push(arguments);}
+					gtag('js', new Date());
+
+					gtag('config', 'G-F7PB7C0Q78');
+					</script>
+				</head>
+				`
+			);
+
 			return response;
 		}),
 	},
