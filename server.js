@@ -6,7 +6,7 @@ const app = express();
 const cache = {};
 
 const proxy = createProxyMiddleware({
-	target: 'https://madeformerch.framer.website',
+	target: 'https://thebestwebsiteevermade.framer.website',
 	changeOrigin: true,
 	selfHandleResponse: true,
 	on: {
